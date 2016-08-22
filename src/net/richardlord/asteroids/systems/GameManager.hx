@@ -71,8 +71,9 @@ class GameManager extends System {
 
 			if (_asteroids.length == 0 && _bullets.length == 0 && _spaceships.length > 0) {
 				// next level
-				var spaceship = _spaceship.get(_spaceships[0]);
-				var spaceshipPosition = _position.get(_spaceships[0]);
+				var spaceshipEntity = _spaceships.get(0);
+				var spaceship = _spaceship.get(spaceshipEntity);
+				var spaceshipPosition = _position.get(spaceshipEntity);
 				gameState.level++;
 				var asteroidCount:Int = 2 + gameState.level;
 				for (i in 0...asteroidCount) {
