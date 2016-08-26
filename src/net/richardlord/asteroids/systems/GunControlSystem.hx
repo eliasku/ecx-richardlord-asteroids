@@ -1,7 +1,6 @@
 package net.richardlord.asteroids.systems;
 
 import ecx.Family;
-import ecx.MapTo;
 import ecx.Wire;
 import ecx.System;
 import net.richardlord.asteroids.core.TimeSystem;
@@ -13,9 +12,9 @@ import net.richardlord.asteroids.components.Position;
 class GunControlSystem extends System {
 
 	var _entities:Family<GunControls, Gun, Position>;
-	var _control:MapTo<GunControls>;
-	var _gun:MapTo<Gun>;
-	var _position:MapTo<Position>;
+	var _control:Wire<GunControls>;
+	var _gun:Wire<Gun>;
+	var _position:Wire<Position>;
 
 	var _keyPoll:Wire<KeyPoll>;
 	var _creator:Wire<EntityCreator>;

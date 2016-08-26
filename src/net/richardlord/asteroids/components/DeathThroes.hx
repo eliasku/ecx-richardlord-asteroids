@@ -1,8 +1,10 @@
 package net.richardlord.asteroids.components;
 
-import ecx.Component;
+import ecx.storage.AutoComp;
 
-class DeathThroes extends Component {
+class DeathThroes extends AutoComp<DeathThroesData> {}
+
+class DeathThroesData {
 
 	public var countdown:Float;
 

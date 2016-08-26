@@ -1,8 +1,10 @@
 package net.richardlord.asteroids.components;
 
-import ecx.Component;
+import ecx.storage.AutoComp;
 
-class GameState extends Component {
+class GameState extends AutoComp<GameStateData> {}
+
+class GameStateData {
 
 	public var lives:Int = 3;
 	public var level:Int = 0;

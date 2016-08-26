@@ -1,9 +1,10 @@
 package net.richardlord.asteroids;
 
-import ecx.EntityView;
+import ecx.Service;
+import ecx.World;
+import ecx.Wire;
 import net.richardlord.asteroids.core.Fsm;
 import ecx.Entity;
-import ecx.System;
 import flash.ui.Keyboard;
 import net.richardlord.asteroids.components.GameState;
 import net.richardlord.asteroids.components.Animation;
@@ -23,93 +24,114 @@ import net.richardlord.asteroids.graphics.BulletView;
 import net.richardlord.asteroids.graphics.SpaceshipView;
 import net.richardlord.asteroids.graphics.SpaceshipDeathView;
 
-class EntityCreator extends System {
+class EntityCreator extends Service {
+
+	var _gameState:Wire<GameState>;
+	var _asteroid:Wire<Asteroid>;
+	var _position:Wire<Position>;
+	var _collision:Wire<Collision>;
+	var _motion:Wire<Motion>;
+	var _display:Wire<Display>;
+	var _fsm:Wire<Fsm>;
+	var _spaceship:Wire<Spaceship>;
+	var _motionControls:Wire<MotionControls>;
+	var _gun:Wire<Gun>;
+	var _gunControls:Wire<GunControls>;
+	var _animation:Wire<Animation>;
+	var _deathThroes:Wire<DeathThroes>;
+	var _bullet:Wire<Bullet>;
 
 	public function new() {}
 
 	public function createGame():Entity {
-		var gameEntity = world.create();
-		world.edit(gameEntity).create(GameState);
-		return gameEntity;
+		var entity = world.create();
+		_gameState.create(entity);
+
+		world.commit(entity);
+		return entity;
 	}
 
 	public function createAsteroid(radius:Float, x:Float, y:Float):Entity {
-		var data = world.edit(world.create());
-		data.create(Asteroid);
-		var position:Position = data.create(Position);
-		var collision:Collision = data.create(Collision);
-		var motion:Motion = data.create(Motion);
-		var display:Display = data.create(Display);
+		var entity = world.create();
+		_asteroid.create(entity);
+		var position = _position.create(entity);
+		var collision = _collision.create(entity);
+		var motion = _motion.create(entity);
+		var sprite = _display.create(entity);
 		position.setup(x, y, 0);
 		collision.radius = radius;
 		motion.setup((Math.random() - 0.5) * 4 * (50 - radius), (Math.random() - 0.5) * 4 * (50 - radius), Math.random() * 2 - 1, 0);
-		display.sprite.addChild(new AsteroidView(radius));
-		return data.entity;
+		sprite.addChild(new AsteroidView(radius));
+
+		world.commit(entity);
+		return entity;
 	}
 
 	public function createSpaceship():Entity {
-		var data = world.edit(world.create());
-		var fsm:Fsm = data.create(Fsm);
-		var position:Position = data.create(Position);
-		var display:Display = data.create(Display);
+		var entity = world.create();
+		var fsm = _fsm.create(entity);
+		var position = _position.create(entity);
+		var sprite = _display.create(entity);
 
-		fsm.createState("playing", function(e:EntityView) {
-			e.create(Spaceship);
-			e.create(Motion).setup(0, 0, 0, 15);
-			e.create(MotionControls).setup(Keyboard.LEFT, Keyboard.RIGHT, Keyboard.UP, 100, 3);
-			e.create(Gun).setup(8, 0, 0.08, 2, 10);
-			e.create(GunControls).trigger = Keyboard.SPACE;
-			e.create(Collision).radius = 9;
-			display.sprite.addChild(new SpaceshipView());
+		fsm.addState("playing", function(world:World, entity:Entity) {
+			_spaceship.create(entity);
+			_motion.create(entity).setup(0, 0, 0, 15);
+			_motionControls.create(entity).setup(Keyboard.LEFT, Keyboard.RIGHT, Keyboard.UP, 100, 3);
+			_gun.create(entity).setup(8, 0, 0.08, 2, 10);
+			_gunControls.create(entity).trigger = Keyboard.SPACE;
+			_collision.create(entity).radius = 9;
+			_display.get(entity).addChild(new SpaceshipView());
 		},
-		function(e:EntityView) {
-			e.remove(Spaceship);
-			e.remove(Motion);
-			e.remove(MotionControls);
-			e.remove(Gun);
-			e.remove(GunControls);
-			e.remove(Collision);
-			display.sprite.removeChildren();
+		function(world:World, entity:Entity) {
+			_spaceship.remove(entity);
+			_motion.remove(entity);
+			_motionControls.remove(entity);
+			_gun.remove(entity);
+			_gunControls.remove(entity);
+			_collision.remove(entity);
+			_display.get(entity).removeChildren();
 		});
 
-		fsm.createState("destroyed", function(e:EntityView) {
+		fsm.addState("destroyed", function(world:World, entity:Entity) {
 			var deathAnimation = new SpaceshipDeathView();
-			e.create(DeathThroes).countdown = 5;
-			e.create(Animation).animation = deathAnimation;
-			display.sprite.addChild(deathAnimation);
+			_deathThroes.create(entity).countdown = 5;
+			_animation.create(entity).animation = deathAnimation;
+			_display.get(entity).addChild(deathAnimation);
 		},
-		function(e:EntityView) {
-			e.remove(DeathThroes);
-			e.remove(Animation);
-			display.sprite.removeChildren();
+		function(world:World, entity:Entity) {
+			_deathThroes.remove(entity);
+			_animation.remove(entity);
+			_display.get(entity).removeChildren();
 		});
 
 		position.setup(300, 225, 0);
 
-		fsm.changeState("playing");
+		fsm.setState("playing");
 
-		return data.entity;
+		world.commit(entity);
+		return entity;
 	}
 
-	public function createUserBullet(gun:Gun, parentPosition:Position):Entity {
+	public function createUserBullet(gun:GunData, parentPosition:PositionData):Entity {
 		var rotation = parentPosition.rotation + gun.spreadAngle * (Math.random() - 0.5) * Math.PI / 180;
 		var cos = Math.cos(rotation);
 		var sin = Math.sin(rotation);
 		var velocity = 300;
 
-		var data = world.edit(world.create());
-		var bullet:Bullet = data.create(Bullet);
-		var position:Position = data.create(Position);
-		var collision:Collision = data.create(Collision);
-		var motion:Motion = data.create(Motion);
-		var display:Display = data.create(Display);
+		var entity = world.create();
+		var bullet = _bullet.create(entity);
+		var position = _position.create(entity);
+		var collision = _collision.create(entity);
+		var motion = _motion.create(entity);
+		var sprite = _display.create(entity);
 
 		bullet.lifeRemaining = gun.bulletLifetime;
 		position.setup(cos * gun.offsetFromParent.x - sin * gun.offsetFromParent.y + parentPosition.position.x, sin * gun.offsetFromParent.x + cos * gun.offsetFromParent.y + parentPosition.position.y, 0);
 		collision.radius = 0;
 		motion.setup(cos * velocity, sin * velocity, 0, 0);
-		display.sprite.addChild(new BulletView());
+		sprite.addChild(new BulletView());
 
-		return data.entity;
+		world.commit(entity);
+		return entity;
 	}
 }

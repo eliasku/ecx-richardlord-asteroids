@@ -1,6 +1,5 @@
 package net.richardlord.asteroids.systems;
 
-import ecx.MapTo;
 import ecx.Family;
 import ecx.Wire;
 import ecx.System;
@@ -11,9 +10,10 @@ import net.richardlord.asteroids.components.DeathThroes;
 class DeathThroesSystem extends System {
 
 	var _entities:Family<DeathThroes>;
-	var _death:MapTo<DeathThroes>;
 
 	var _creator:Wire<EntityCreator>;
+
+	var _death:Wire<DeathThroes>;
 	var _time:Wire<TimeSystem>;
 
 	public function new() {}

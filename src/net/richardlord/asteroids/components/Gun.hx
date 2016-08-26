@@ -1,9 +1,11 @@
 package net.richardlord.asteroids.components;
 
-import ecx.Component;
+import ecx.storage.AutoComp;
 import flash.geom.Point;
 
-class Gun extends Component {
+class Gun extends AutoComp<GunData> {}
+
+class GunData {
 
 	public var shooting:Bool = false;
 	public var offsetFromParent:Point;

@@ -1,8 +1,10 @@
 package net.richardlord.asteroids.components;
 
-import ecx.Component;
+import ecx.storage.AutoComp;
 
-class MotionControls extends Component {
+class MotionControls extends AutoComp<MotionControlsData> {}
+
+class MotionControlsData {
 
 	public var left:Int;
 	public var right:Int;

@@ -1,9 +1,9 @@
 package net.richardlord.asteroids;
 
+import ecx.Service;
 import flash.Lib;
-import ecx.System;
 
-class GameConfig extends System {
+class GameConfig extends Service {
 
 	public var width(default, null):Float;
 	public var height(default, null):Float;

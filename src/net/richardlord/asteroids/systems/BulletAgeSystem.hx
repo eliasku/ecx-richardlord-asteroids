@@ -1,6 +1,5 @@
 package net.richardlord.asteroids.systems;
 
-import ecx.MapTo;
 import ecx.Family;
 import ecx.Wire;
 import ecx.System;
@@ -9,10 +8,10 @@ import net.richardlord.asteroids.components.Bullet;
 
 class BulletAgeSystem extends System {
 
-	var _entities:Family<Bullet>;
-	var _bullet:MapTo<Bullet>;
-
 	var _time:Wire<TimeSystem>;
+	var _bullet:Wire<Bullet>;
+
+	var _entities:Family<Bullet>;
 
 	public function new() {}
 

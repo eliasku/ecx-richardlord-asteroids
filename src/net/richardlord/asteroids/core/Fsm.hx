@@ -1,24 +1,31 @@
 package net.richardlord.asteroids.core;
 
-import ecx.EntityView;
-import ecx.Component;
+import ecx.storage.AutoComp;
+import ecx.Entity;
+import ecx.World;
 
-class Fsm extends Component {
+typedef FsmCallback = World->Entity->Void;
 
-	var _currentState:String;
-	var _nextState:String;
+class Fsm extends AutoComp<FsmData> {
+	public function new() {}
+}
 
-	var _added:Map<String, EntityView->Void> = new Map();
-	var _removed:Map<String, EntityView->Void> = new Map();
+class FsmData {
+
+	public var state(default, null):String;
+
+	var _next:String;
+	var _enter:Map<String, FsmCallback> = new Map();
+	var _exit:Map<String, FsmCallback> = new Map();
 
 	public function new() {}
 
-	public function changeState(newState:String) {
-		_nextState = newState;
+	public function addState(name:String, enter:FsmCallback, exit:FsmCallback) {
+		_enter.set(name, enter);
+		_exit.set(name, exit);
 	}
 
-	public function createState(name:String, added:EntityView->Void, removed:EntityView->Void) {
-		_added.set(name, added);
-		_removed.set(name, removed);
+	public function setState(name:String) {
+		_next = name;
 	}
 }

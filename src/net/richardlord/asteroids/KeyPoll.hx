@@ -1,5 +1,6 @@
 ﻿package net.richardlord.asteroids;
 
+import ecx.Service;
 import flash.Lib;
 import ecx.System;
 import haxe.io.Bytes;
@@ -20,7 +21,7 @@ import flash.display.DisplayObject;
  * <p>The KeyPoll class rectifies this. It has isDown and isUp methods, each taking a key code as a
  * parameter and returning a Boolean.</p>
  */
-class KeyPoll extends System {
+class KeyPoll extends Service {
 
 	private var states:Bytes;
 	private var dispObj:DisplayObject;

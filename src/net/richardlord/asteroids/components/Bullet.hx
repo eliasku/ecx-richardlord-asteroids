@@ -1,8 +1,10 @@
 package net.richardlord.asteroids.components;
 
-import ecx.Component;
+import ecx.storage.AutoComp;
 
-class Bullet extends Component {
+class Bullet extends AutoComp<BulletData> {}
+
+class BulletData {
 
 	public var lifeRemaining:Float;
 

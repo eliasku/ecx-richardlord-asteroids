@@ -1,9 +1,11 @@
 package net.richardlord.asteroids.components;
 
-import ecx.Component;
+import ecx.storage.AutoComp;
 import flash.geom.Point;
 
-class Position extends Component {
+class Position extends AutoComp<PositionData> {}
+
+class PositionData {
 
 	public var position:Point;
 	public var rotation:Float;

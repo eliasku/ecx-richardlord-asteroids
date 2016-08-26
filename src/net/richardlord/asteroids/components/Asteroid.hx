@@ -1,7 +1,5 @@
 package net.richardlord.asteroids.components;
 
-import ecx.Component;
+import ecx.storage.AutoComp;
 
-class Asteroid extends Component {
-	public function new() {}
-}
+class Asteroid extends AutoComp<Empty> {}

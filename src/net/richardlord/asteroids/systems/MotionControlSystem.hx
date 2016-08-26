@@ -1,7 +1,6 @@
 package net.richardlord.asteroids.systems;
 
 import ecx.Family;
-import ecx.MapTo;
 import ecx.Wire;
 import ecx.System;
 import net.richardlord.asteroids.core.TimeSystem;
@@ -12,9 +11,9 @@ import net.richardlord.asteroids.components.Position;
 class MotionControlSystem extends System {
 
 	var _entities:Family<MotionControls, Position, Motion>;
-	var _control:MapTo<MotionControls>;
-	var _position:MapTo<Position>;
-	var _motion:MapTo<Motion>;
+	var _control:Wire<MotionControls>;
+	var _position:Wire<Position>;
+	var _motion:Wire<Motion>;
 
 	var _keyPoll:Wire<KeyPoll>;
 	var _time:Wire<TimeSystem>;

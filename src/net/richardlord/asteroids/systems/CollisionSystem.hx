@@ -2,7 +2,6 @@ package net.richardlord.asteroids.systems;
 
 import flash.geom.Point;
 import ecx.Family;
-import ecx.MapTo;
 import ecx.Wire;
 import ecx.System;
 import net.richardlord.asteroids.core.Fsm;
@@ -17,12 +16,12 @@ class CollisionSystem extends System {
 
 	var _creator:Wire<EntityCreator>;
 
-	var _spaceship:MapTo<Spaceship>;
-	var _fsm:MapTo<Fsm>;
-	var _asteroid:MapTo<Asteroid>;
-	var _bullet:MapTo<Bullet>;
-	var _position:MapTo<Position>;
-	var _collision:MapTo<Collision>;
+	var _spaceship:Wire<Spaceship>;
+	var _fsm:Wire<Fsm>;
+	var _asteroid:Wire<Asteroid>;
+	var _bullet:Wire<Bullet>;
+	var _position:Wire<Position>;
+	var _collision:Wire<Collision>;
 
 	var _spaceships:Family<Spaceship, Position, Collision>;
 	var _asteroids:Family<Asteroid, Position, Collision>;
@@ -59,7 +58,7 @@ class CollisionSystem extends System {
 				var asteroidCollision = _collision.get(asteroidEntity);
 
 				if (Point.distance(asteroidPosition.position, spaceshipPosition.position) <= asteroidCollision.radius + spaceshipCollision.radius) {
-					_fsm.get(spaceshipEntity).changeState("destroyed");
+					_fsm.get(spaceshipEntity).setState("destroyed");
 					break;
 				}
 			}

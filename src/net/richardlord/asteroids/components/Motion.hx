@@ -1,9 +1,11 @@
 package net.richardlord.asteroids.components;
 
-import ecx.Component;
+import ecx.storage.AutoComp;
 import flash.geom.Point;
 
-class Motion extends Component {
+class Motion extends AutoComp<MotionData> {}
+
+class MotionData {
 
 	public var velocity:Point;
 	public var angularVelocity:Float;

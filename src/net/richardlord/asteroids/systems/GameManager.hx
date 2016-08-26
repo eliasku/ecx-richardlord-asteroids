@@ -1,7 +1,6 @@
 package net.richardlord.asteroids.systems;
 
 import flash.geom.Point;
-import ecx.MapTo;
 import ecx.Family;
 import ecx.Wire;
 import ecx.System;
@@ -22,18 +21,18 @@ class GameManager extends System {
 	var _time:Wire<TimeSystem>;
 
 	var _gameStates:Family<GameState>;
-	var _gameState:MapTo<GameState>;
+	var _gameState:Wire<GameState>;
 
 	var _spaceships:Family<Spaceship, Position>;
-	var _spaceship:MapTo<Spaceship>;
-	var _position:MapTo<Position>;
+	var _spaceship:Wire<Spaceship>;
+	var _position:Wire<Position>;
 
 	var _asteroids:Family<Asteroid, Position, Collision>;
-	var _asteroid:MapTo<Asteroid>;
-	var _collision:MapTo<Collision>;
+	var _asteroid:Wire<Asteroid>;
+	var _collision:Wire<Collision>;
 
 	var _bullets:Family<Bullet, Position, Collision>;
-	var _bullet:MapTo<Bullet>;
+	var _bullet:Wire<Bullet>;
 
 	public function new() {}
 

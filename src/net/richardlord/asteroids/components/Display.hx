@@ -1,11 +1,6 @@
 package net.richardlord.asteroids.components;
 
+import ecx.storage.AutoComp;
 import flash.display.Sprite;
-import ecx.Component;
 
-class Display extends Component {
-
-	public var sprite(default, null):Sprite = new Sprite();
-
-	public function new() {}
-}
+class Display extends AutoComp<Sprite> {}
