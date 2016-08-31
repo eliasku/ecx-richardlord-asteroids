@@ -2,7 +2,8 @@
 
 [Richard Lord's](http://www.richardlord.net) Asteroids Game examples rewritten for [ECX library](https://github.com/eliasku/ecx)
 
-## Added
+## Changes
+- `BulletAgeSystem` and `DeathThroesSystem` are unified with `AgeSystem`
 - Gun spread angle
 - Fps-meter
 

@@ -1,5 +1,12 @@
 package net.richardlord.asteroids;
 
+import flash.display.Sprite;
+
+import ecx.Engine;
+import ecx.WorldConfig;
+import ecx.World;
+
+import net.richardlord.asteroids.components.Age;
 import net.richardlord.asteroids.components.Spaceship;
 import net.richardlord.asteroids.components.Position;
 import net.richardlord.asteroids.components.MotionControls;
@@ -8,25 +15,20 @@ import net.richardlord.asteroids.components.GunControls;
 import net.richardlord.asteroids.components.Gun;
 import net.richardlord.asteroids.components.GameState;
 import net.richardlord.asteroids.components.Display;
-import net.richardlord.asteroids.components.DeathThroes;
 import net.richardlord.asteroids.components.Collision;
 import net.richardlord.asteroids.components.Bullet;
 import net.richardlord.asteroids.components.Asteroid;
 import net.richardlord.asteroids.components.Animation;
-import flash.display.Sprite;
-import ecx.Engine;
-import ecx.WorldConfig;
-import ecx.World;
 
 import net.richardlord.asteroids.systems.RenderSystem;
 import net.richardlord.asteroids.systems.AnimationSystem;
 import net.richardlord.asteroids.systems.CollisionSystem;
 import net.richardlord.asteroids.systems.MovementSystem;
-import net.richardlord.asteroids.systems.DeathThroesSystem;
-import net.richardlord.asteroids.systems.BulletAgeSystem;
 import net.richardlord.asteroids.systems.GunControlSystem;
 import net.richardlord.asteroids.systems.MotionControlSystem;
 import net.richardlord.asteroids.systems.GameManager;
+import net.richardlord.asteroids.systems.AgeSystem;
+
 import net.richardlord.asteroids.core.FpsMeter;
 import net.richardlord.asteroids.core.Stats;
 import net.richardlord.asteroids.core.TimeSystem;
@@ -70,8 +72,7 @@ class Main extends Sprite {
 		config.add(new FsmSystem(), update);
 		config.add(new MotionControlSystem(), update);
 		config.add(new GunControlSystem(), update);
-		config.add(new BulletAgeSystem(), update);
-		config.add(new DeathThroesSystem(), update);
+		config.add(new AgeSystem(), update);
 		config.add(new MovementSystem(), move);
 		config.add(new CollisionSystem(), resolveCollisions);
 		config.add(new AnimationSystem(), animate);
@@ -83,7 +84,7 @@ class Main extends Sprite {
 		config.add(new Asteroid());
 		config.add(new Bullet());
 		config.add(new Collision());
-		config.add(new DeathThroes());
+		config.add(new Age());
 		config.add(new Display());
 		config.add(new GameState());
 		config.add(new Gun());
@@ -94,6 +95,6 @@ class Main extends Sprite {
 		config.add(new Spaceship());
 
 		// create world
-		_world = Engine.initialize().createWorld(config, 1000);
+		_world = Engine.createWorld(config, 1000);
 	}
 }

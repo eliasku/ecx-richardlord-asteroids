@@ -18,7 +18,7 @@ class AnimationSystem extends System {
 	override function update() {
 		var dt = _time.deltaTime;
 		for(entity in _entities) {
-			_animation.get(entity).animation.animate(dt);
+			_animation.get(entity).animate(dt);
 		}
 	}
 }

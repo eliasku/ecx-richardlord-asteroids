@@ -1,5 +1,6 @@
 package net.richardlord.asteroids;
 
+import net.richardlord.asteroids.components.Age;
 import ecx.Service;
 import ecx.World;
 import ecx.Wire;
@@ -8,7 +9,6 @@ import ecx.Entity;
 import flash.ui.Keyboard;
 import net.richardlord.asteroids.components.GameState;
 import net.richardlord.asteroids.components.Animation;
-import net.richardlord.asteroids.components.DeathThroes;
 import net.richardlord.asteroids.components.Collision;
 import net.richardlord.asteroids.components.Asteroid;
 import net.richardlord.asteroids.components.Bullet;
@@ -38,7 +38,7 @@ class EntityCreator extends Service {
 	var _gun:Wire<Gun>;
 	var _gunControls:Wire<GunControls>;
 	var _animation:Wire<Animation>;
-	var _deathThroes:Wire<DeathThroes>;
+	var _age:Wire<Age>;
 	var _bullet:Wire<Bullet>;
 
 	public function new() {}
@@ -94,12 +94,12 @@ class EntityCreator extends Service {
 
 		fsm.addState("destroyed", function(world:World, entity:Entity) {
 			var deathAnimation = new SpaceshipDeathView();
-			_deathThroes.create(entity).countdown = 5;
-			_animation.create(entity).animation = deathAnimation;
+			_age.create(entity).lifeRemaining = 5;
+			_animation.set(entity, deathAnimation);
 			_display.get(entity).addChild(deathAnimation);
 		},
 		function(world:World, entity:Entity) {
-			_deathThroes.remove(entity);
+			_age.remove(entity);
 			_animation.remove(entity);
 			_display.get(entity).removeChildren();
 		});
@@ -119,13 +119,13 @@ class EntityCreator extends Service {
 		var velocity = 300;
 
 		var entity = world.create();
-		var bullet = _bullet.create(entity);
+		_bullet.create(entity);
 		var position = _position.create(entity);
 		var collision = _collision.create(entity);
 		var motion = _motion.create(entity);
 		var sprite = _display.create(entity);
 
-		bullet.lifeRemaining = gun.bulletLifetime;
+		_age.create(entity).lifeRemaining = gun.bulletLifetime;
 		position.setup(cos * gun.offsetFromParent.x - sin * gun.offsetFromParent.y + parentPosition.position.x, sin * gun.offsetFromParent.x + cos * gun.offsetFromParent.y + parentPosition.position.y, 0);
 		collision.radius = 0;
 		motion.setup(cos * velocity, sin * velocity, 0, 0);

@@ -16,10 +16,7 @@ class CollisionSystem extends System {
 
 	var _creator:Wire<EntityCreator>;
 
-	var _spaceship:Wire<Spaceship>;
 	var _fsm:Wire<Fsm>;
-	var _asteroid:Wire<Asteroid>;
-	var _bullet:Wire<Bullet>;
 	var _position:Wire<Position>;
 	var _collision:Wire<Collision>;
 
