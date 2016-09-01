@@ -7,5 +7,5 @@
 - Gun spread angle
 - Fps-meter
 
-## Legacy
-Look at `v1` branch for [ecx legacy](https://github.com/eliasku/ecx/tree/v1.0.0) (current haxelib version 0.0.5)
+## Legacy 0.0.5
+[Legacy Example for ecx 0.0.5](https://github.com/eliasku/ecx-richardlord-asteroids/tree/release/0.0.5)
