@@ -1,6 +1,6 @@
 package net.richardlord.asteroids.core;
 
-import ecx.storage.AutoComp;
+import ecx.AutoComp;
 import ecx.Entity;
 import ecx.World;
 

@@ -1,6 +1,6 @@
 package net.richardlord.asteroids.components;
 
-import ecx.storage.AutoComp;
+import ecx.AutoComp;
 
 class Age extends AutoComp<AgeData> {}
 

@@ -1,7 +1,7 @@
 package net.richardlord.asteroids.components;
 
-import ecx.storage.AutoComp;
 import flash.geom.Point;
+import ecx.AutoComp;
 
 class Motion extends AutoComp<MotionData> {}
 

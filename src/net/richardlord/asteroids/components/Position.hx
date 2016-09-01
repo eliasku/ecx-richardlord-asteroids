@@ -1,6 +1,6 @@
 package net.richardlord.asteroids.components;
 
-import ecx.storage.AutoComp;
+import ecx.AutoComp;
 import flash.geom.Point;
 
 class Position extends AutoComp<PositionData> {}

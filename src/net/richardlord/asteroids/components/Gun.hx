@@ -1,6 +1,6 @@
 package net.richardlord.asteroids.components;
 
-import ecx.storage.AutoComp;
+import ecx.AutoComp;
 import flash.geom.Point;
 
 class Gun extends AutoComp<GunData> {}
