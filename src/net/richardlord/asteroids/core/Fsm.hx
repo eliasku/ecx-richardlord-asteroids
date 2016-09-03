@@ -6,9 +6,7 @@ import ecx.World;
 
 typedef FsmCallback = World->Entity->Void;
 
-class Fsm extends AutoComp<FsmData> {
-	public function new() {}
-}
+class Fsm extends AutoComp<FsmData> {}
 
 class FsmData {
 
