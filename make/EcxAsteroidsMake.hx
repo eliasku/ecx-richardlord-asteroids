@@ -10,6 +10,7 @@ class EcxAsteroidsMake extends hxmake.Module {
 		config.testPath = [];
 		config.dependencies = [
 			"ecx" => "haxelib",
+			"ecx-common" => "haxelib",
 			"openfl" => "haxelib"
 		];
 

@@ -2,12 +2,10 @@
 
 import ecx.Service;
 import flash.Lib;
-import ecx.System;
-import haxe.io.Bytes;
-
-import flash.events.KeyboardEvent;
-import flash.events.Event;
 import flash.display.DisplayObject;
+import flash.events.Event;
+import flash.events.KeyboardEvent;
+import haxe.io.Bytes;
 
 /**
  * <p>Games often need to get the current state of various keys in order to respond to user input.
@@ -59,13 +57,15 @@ class KeyPoll extends Service {
 	}
 
 	private function activateListener(ev:Event):Void {
-		for (i in 0...8)
+		for (i in 0...8) {
 			states.set(i, 0);
+		}
 	}
 
 	private function deactivateListener(ev:Event):Void {
-		for (i in 0...8)
+		for (i in 0...8) {
 			states.set(i, 0);
+		}
 	}
 
 	/**

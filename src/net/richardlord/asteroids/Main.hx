@@ -1,40 +1,33 @@
 package net.richardlord.asteroids;
 
-import flash.display.Sprite;
-
 import ecx.Engine;
-import ecx.WorldConfig;
 import ecx.World;
-
+import ecx.WorldConfig;
+import ecx.common.EcxCommon;
+import flash.display.Sprite;
 import net.richardlord.asteroids.components.Age;
-import net.richardlord.asteroids.components.Spaceship;
-import net.richardlord.asteroids.components.Position;
-import net.richardlord.asteroids.components.MotionControls;
-import net.richardlord.asteroids.components.Motion;
-import net.richardlord.asteroids.components.GunControls;
-import net.richardlord.asteroids.components.Gun;
-import net.richardlord.asteroids.components.GameState;
-import net.richardlord.asteroids.components.Display;
-import net.richardlord.asteroids.components.Collision;
-import net.richardlord.asteroids.components.Bullet;
-import net.richardlord.asteroids.components.Asteroid;
 import net.richardlord.asteroids.components.Animation;
-
-import net.richardlord.asteroids.systems.RenderSystem;
+import net.richardlord.asteroids.components.Asteroid;
+import net.richardlord.asteroids.components.Bullet;
+import net.richardlord.asteroids.components.Collision;
+import net.richardlord.asteroids.components.Display;
+import net.richardlord.asteroids.components.GameState;
+import net.richardlord.asteroids.components.Gun;
+import net.richardlord.asteroids.components.GunControls;
+import net.richardlord.asteroids.components.Motion;
+import net.richardlord.asteroids.components.MotionControls;
+import net.richardlord.asteroids.components.Position;
+import net.richardlord.asteroids.components.Spaceship;
+import net.richardlord.asteroids.core.EnterFrameService;
+import net.richardlord.asteroids.core.StatsView;
+import net.richardlord.asteroids.systems.AgeSystem;
 import net.richardlord.asteroids.systems.AnimationSystem;
 import net.richardlord.asteroids.systems.CollisionSystem;
-import net.richardlord.asteroids.systems.MovementSystem;
+import net.richardlord.asteroids.systems.GameManager;
 import net.richardlord.asteroids.systems.GunControlSystem;
 import net.richardlord.asteroids.systems.MotionControlSystem;
-import net.richardlord.asteroids.systems.GameManager;
-import net.richardlord.asteroids.systems.AgeSystem;
-
-import net.richardlord.asteroids.core.FpsMeter;
-import net.richardlord.asteroids.core.Stats;
-import net.richardlord.asteroids.core.TimeSystem;
-import net.richardlord.asteroids.core.UpdateSystem;
-import net.richardlord.asteroids.core.Fsm;
-import net.richardlord.asteroids.core.FsmSystem;
+import net.richardlord.asteroids.systems.MovementSystem;
+import net.richardlord.asteroids.systems.RenderSystem;
 
 class Main extends Sprite {
 
@@ -54,22 +47,19 @@ class Main extends Sprite {
 		var animate:Int = 6;
 		var render:Int = 7;
 
-		// ecx-specific boilerplate
-		config.add(new UpdateSystem());
-		config.add(new TimeSystem(), -1000);
+		config.include(new EcxCommon());
 
 		// just stats example
-		config.add(new Stats());
-		config.add(new FpsMeter());
+		config.add(new StatsView());
+		config.add(new EnterFrameService());
 
-		// asteroids globals became injectable systems
+		// asteroid's static classes became injectable services
 		config.add(new KeyPoll());
 		config.add(new GameConfig());
 		config.add(new EntityCreator());
 
 		// asteroids
 		config.add(new GameManager(), preUpdate);
-		config.add(new FsmSystem(), update);
 		config.add(new MotionControlSystem(), update);
 		config.add(new GunControlSystem(), update);
 		config.add(new AgeSystem(), update);
@@ -79,7 +69,6 @@ class Main extends Sprite {
 		config.add(new RenderSystem(), render);
 
 		// components
-		config.add(new Fsm());
 		config.add(new Animation());
 		config.add(new Asteroid());
 		config.add(new Bullet());

@@ -1,18 +1,18 @@
 package net.richardlord.asteroids;
 
-import net.richardlord.asteroids.components.Age;
-import ecx.Service;
-import ecx.World;
-import ecx.Wire;
-import net.richardlord.asteroids.core.Fsm;
 import ecx.Entity;
+import ecx.Service;
+import ecx.Wire;
+import ecx.World;
+import ecx.common.components.Fsm;
 import flash.ui.Keyboard;
-import net.richardlord.asteroids.components.GameState;
+import net.richardlord.asteroids.components.Age;
 import net.richardlord.asteroids.components.Animation;
-import net.richardlord.asteroids.components.Collision;
 import net.richardlord.asteroids.components.Asteroid;
 import net.richardlord.asteroids.components.Bullet;
+import net.richardlord.asteroids.components.Collision;
 import net.richardlord.asteroids.components.Display;
+import net.richardlord.asteroids.components.GameState;
 import net.richardlord.asteroids.components.Gun;
 import net.richardlord.asteroids.components.GunControls;
 import net.richardlord.asteroids.components.Motion;
@@ -21,8 +21,8 @@ import net.richardlord.asteroids.components.Position;
 import net.richardlord.asteroids.components.Spaceship;
 import net.richardlord.asteroids.graphics.AsteroidView;
 import net.richardlord.asteroids.graphics.BulletView;
-import net.richardlord.asteroids.graphics.SpaceshipView;
 import net.richardlord.asteroids.graphics.SpaceshipDeathView;
+import net.richardlord.asteroids.graphics.SpaceshipView;
 
 class EntityCreator extends Service {
 
@@ -83,12 +83,12 @@ class EntityCreator extends Service {
 			_display.get(entity).addChild(new SpaceshipView());
 		},
 		function(world:World, entity:Entity) {
-			_spaceship.remove(entity);
-			_motion.remove(entity);
-			_motionControls.remove(entity);
-			_gun.remove(entity);
-			_gunControls.remove(entity);
-			_collision.remove(entity);
+			_spaceship.destroy(entity);
+			_motion.destroy(entity);
+			_motionControls.destroy(entity);
+			_gun.destroy(entity);
+			_gunControls.destroy(entity);
+			_collision.destroy(entity);
 			_display.get(entity).removeChildren();
 		});
 
@@ -99,8 +99,8 @@ class EntityCreator extends Service {
 			_display.get(entity).addChild(deathAnimation);
 		},
 		function(world:World, entity:Entity) {
-			_age.remove(entity);
-			_animation.remove(entity);
+			_age.destroy(entity);
+			_animation.destroy(entity);
 			_display.get(entity).removeChildren();
 		});
 

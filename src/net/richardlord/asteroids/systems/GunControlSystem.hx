@@ -1,9 +1,9 @@
 package net.richardlord.asteroids.systems;
 
 import ecx.Family;
-import ecx.Wire;
 import ecx.System;
-import net.richardlord.asteroids.core.TimeSystem;
+import ecx.Wire;
+import ecx.common.systems.TimeSystem;
 import net.richardlord.asteroids.EntityCreator;
 import net.richardlord.asteroids.components.Gun;
 import net.richardlord.asteroids.components.GunControls;

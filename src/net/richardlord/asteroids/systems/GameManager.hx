@@ -1,18 +1,18 @@
 package net.richardlord.asteroids.systems;
 
-import flash.geom.Point;
 import ecx.Family;
-import ecx.Wire;
 import ecx.System;
-import net.richardlord.asteroids.core.TimeSystem;
-import net.richardlord.asteroids.components.Bullet;
-import net.richardlord.asteroids.components.Asteroid;
-import net.richardlord.asteroids.components.Collision;
-import net.richardlord.asteroids.components.Position;
-import net.richardlord.asteroids.components.Spaceship;
-import net.richardlord.asteroids.components.GameState;
+import ecx.Wire;
+import ecx.common.systems.TimeSystem;
+import flash.geom.Point;
 import net.richardlord.asteroids.EntityCreator;
 import net.richardlord.asteroids.GameConfig;
+import net.richardlord.asteroids.components.Asteroid;
+import net.richardlord.asteroids.components.Bullet;
+import net.richardlord.asteroids.components.Collision;
+import net.richardlord.asteroids.components.GameState;
+import net.richardlord.asteroids.components.Position;
+import net.richardlord.asteroids.components.Spaceship;
 
 class GameManager extends System {
 

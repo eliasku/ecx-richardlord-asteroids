@@ -1,9 +1,9 @@
 package net.richardlord.asteroids.systems;
 
 import ecx.Family;
-import ecx.Wire;
 import ecx.System;
-import net.richardlord.asteroids.core.TimeSystem;
+import ecx.Wire;
+import ecx.common.systems.TimeSystem;
 import net.richardlord.asteroids.GameConfig;
 import net.richardlord.asteroids.components.Motion;
 import net.richardlord.asteroids.components.Position;

@@ -1,10 +1,14 @@
 package net.richardlord.asteroids.core;
 
-import flash.events.Event;
+import ecx.Service;
+import ecx.Wire;
+import ecx.common.systems.SystemRunner;
 import flash.Lib;
-import ecx.System;
+import flash.events.Event;
 
-class UpdateSystem extends System {
+class EnterFrameService extends Service {
+
+	var _runner:Wire<SystemRunner>;
 
 	public function new() {}
 
@@ -13,9 +17,6 @@ class UpdateSystem extends System {
 	}
 
 	function onEnterFrame(_) {
-		for (system in world.systems()) {
-			system.update();
-			world.invalidate();
-		}
+		_runner.updateFrame();
 	}
 }

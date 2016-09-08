@@ -1,16 +1,16 @@
 package net.richardlord.asteroids.systems;
 
-import flash.geom.Point;
 import ecx.Family;
-import ecx.Wire;
 import ecx.System;
-import net.richardlord.asteroids.core.Fsm;
+import ecx.Wire;
+import ecx.common.components.Fsm;
+import flash.geom.Point;
+import net.richardlord.asteroids.EntityCreator;
+import net.richardlord.asteroids.components.Asteroid;
+import net.richardlord.asteroids.components.Bullet;
 import net.richardlord.asteroids.components.Collision;
 import net.richardlord.asteroids.components.Position;
-import net.richardlord.asteroids.components.Bullet;
-import net.richardlord.asteroids.components.Asteroid;
 import net.richardlord.asteroids.components.Spaceship;
-import net.richardlord.asteroids.EntityCreator;
 
 class CollisionSystem extends System {
 
@@ -35,12 +35,12 @@ class CollisionSystem extends System {
 				var asteroidCollision = _collision.get(asteroidEntity);
 
 				if (Point.distance(asteroidPosition.position, bulletPosition.position) <= asteroidCollision.radius) {
-					world.delete(bulletEntity);
+					world.destroy(bulletEntity);
 					if (asteroidCollision.radius > 10) {
 						_creator.createAsteroid(asteroidCollision.radius - 10, asteroidPosition.position.x + Math.random() * 10 - 5, asteroidPosition.position.y + Math.random() * 10 - 5);
 						_creator.createAsteroid(asteroidCollision.radius - 10, asteroidPosition.position.x + Math.random() * 10 - 5, asteroidPosition.position.y + Math.random() * 10 - 5);
 					}
-					world.delete(asteroidEntity);
+					world.destroy(asteroidEntity);
 					break;
 				}
 			}

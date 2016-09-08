@@ -1,9 +1,9 @@
 package net.richardlord.asteroids.systems;
 
 import ecx.Family;
-import ecx.Wire;
 import ecx.System;
-import net.richardlord.asteroids.core.TimeSystem;
+import ecx.Wire;
+import ecx.common.systems.TimeSystem;
 import net.richardlord.asteroids.components.Motion;
 import net.richardlord.asteroids.components.MotionControls;
 import net.richardlord.asteroids.components.Position;
@@ -22,7 +22,7 @@ class MotionControlSystem extends System {
 
 	override function update() {
 		var dt = _time.deltaTime;
-		for(entity in _entities) {
+		for (entity in _entities) {
 			var control = _control.get(entity);
 			var position = _position.get(entity);
 			var motion = _motion.get(entity);

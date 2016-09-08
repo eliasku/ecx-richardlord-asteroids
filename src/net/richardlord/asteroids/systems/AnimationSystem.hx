@@ -1,9 +1,9 @@
 package net.richardlord.asteroids.systems;
 
-import ecx.Wire;
-import ecx.System;
 import ecx.Family;
-import net.richardlord.asteroids.core.TimeSystem;
+import ecx.System;
+import ecx.Wire;
+import ecx.common.systems.TimeSystem;
 import net.richardlord.asteroids.components.Animation;
 
 class AnimationSystem extends System {
@@ -17,7 +17,7 @@ class AnimationSystem extends System {
 
 	override function update() {
 		var dt = _time.deltaTime;
-		for(entity in _entities) {
+		for (entity in _entities) {
 			_animation.get(entity).animate(dt);
 		}
 	}
